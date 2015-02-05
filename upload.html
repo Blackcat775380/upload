@@ -42,29 +42,49 @@ function ddisp(obj){
 		window.alert('キャンセルされました');
 	}
 }
+function aopen(obj){
+	execPost('add/open.php', {'url':"obj",});
+}
+function execPost(action, data) {
+	// フォームの生成
+	var form = document.createElement("form");
+	form.setAttribute("action", action);
+	form.setAttribute("method", "post");
+	form.style.display = "none";
+	document.body.appendChild(form);
+	// パラメタの設定
+	if (data !== undefined) {
+		for (var paramName in data) {
+			var input = document.createElement('input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('name', paramName);
+			input.setAttribute('value', data[paramName]);
+			form.appendChild(input);
+		}
+	}
+	// submit
+	form.submit();
+}
+$(document).ready(function(){
+		$("#sampleTable").tablesorter();
+		$("#fileTable").tablesorter();
+});
 </script>
 <script type="text/javascript">
-     var input = [];
-        konami = [38,38,40,40,37,39,37,39,66,65];
-        dll = [38,37,40,39];
+	var input = [];
+	konami = [38,38,40,40,37,39,37,39,66,65];
+	dll = [38,37,40,39];
 
-     $(window).keyup(function(e){
-       input.push(e.keyCode);
-
-       if (input.toString().indexOf(konami) >= 0)
-       {
-          location.href = "add/open.php?url=/media/nas/";
-          input = [];
-       }else if(input.toString().indexOf(dll) >= 0){
-          location.href = "add/download.php";
-          input = [];
-       }
-     });
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-			$("#sampleTable").tablesorter();
-			$("#fileTable").tablesorter();
+	$(window).keyup(function(e){
+		input.push(e.keyCode);
+		if (input.toString().indexOf(konami) >= 0){
+			execPost('add/open.php', {'url':"/media/",});
+			//location.href = "add/open.php?url=/media/nas/";
+			input = [];
+		}else if(input.toString().indexOf(dll) >= 0){
+			location.href = "add/download.php";
+			input = [];
+		}
 	});
 </script>
 <script>
@@ -434,6 +454,23 @@ df.init();
 <table border=1 >
 	<tr><th>日付</th><th>変更場所</th><th>内容</th>
 	<td rowspan="26" valign="top"><font size="4">
+	　air.php リンク各種<br><br>
+	　<a href="sosu/module/air.php">ログイン login.php</a> <br><br>
+	　<a href="sosu/module/air.php?screen_id=10101">出欠席 main_attendance.php</a> <br><br>
+	　　<a href="sosu/module/air.php?screen_id=10201">登録メニュー</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10302">学科</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10301">教師</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10303">生徒</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10305">科目・イベント</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10307">時間割登録</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10309">時間割割り当て</a> <br><br>
+	　　　<a href="sosu/module/air.php?screen_id=10312">年間スケジュール登録</a> <br><br>
+
+	　　<a href="sosu/module/air.php?screen_id=19001">処理確定通知</a> <br><br>
+	　　<a href="sosu/module/air.php?screen_id=19501">処理失敗通知</a> <br><br>
+	　<a href="sosu/module/air.php?screen_id=11102">生徒用年間スケジュール</a> <br><br>
+	　<a href="sosu/module/air.php?screen_id=11103">生徒用時間割</a> <br><br>
+	　<a href="sosu/module/air.php?screen_id=11101">生徒用詳細(Main)</a> <br><br>
 	</font></td></tr>
 	<tr><td>2015/01/21</td><td>download.php</td><td>ダウンロード改良</td></tr>
 	<tr><td>2015/01/21</td><td>dll.php</td><td>一括DL用</td></tr>
